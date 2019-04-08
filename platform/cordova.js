@@ -1,21 +1,54 @@
-import lib from "../lib/";
-import Image from "../lib/image";
-import Mouse from "../lib/addon/mouse";
-import Math from "../lib/util/math";
-import _extend from "../lib/util/extend";
-import _create from "../lib/util/create";
-import "../lib/canvas";
-import "../lib/anim";
-import "../lib/str";
-import "../lib/layout";
-import "../lib/addon/tween";
-import "../lib/loader/cordova";
-export default lib;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-lib.internal = {};
+var _lib = require("../lib/");
 
-lib.internal.Image = Image;
-lib.Mouse = Mouse;
-lib.Math = Math;
-lib._extend = _extend;
-lib._create = _create;
+var _lib2 = _interopRequireDefault(_lib);
+
+var _image = require("../lib/image");
+
+var _image2 = _interopRequireDefault(_image);
+
+var _mouse = require("../lib/addon/mouse");
+
+var _mouse2 = _interopRequireDefault(_mouse);
+
+var _math = require("../lib/util/math");
+
+var _math2 = _interopRequireDefault(_math);
+
+var _extend2 = require("../lib/util/extend");
+
+var _extend3 = _interopRequireDefault(_extend2);
+
+var _create2 = require("../lib/util/create");
+
+var _create3 = _interopRequireDefault(_create2);
+
+require("../lib/canvas");
+
+require("../lib/anim");
+
+require("../lib/str");
+
+require("../lib/layout");
+
+require("../lib/addon/tween");
+
+require("../lib/loader/cordova");
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+exports.default = _lib2.default;
+
+_lib2.default.internal = {};
+
+_lib2.default.internal.Image = _image2.default;
+_lib2.default.Mouse = _mouse2.default;
+_lib2.default.Math = _math2.default;
+_lib2.default._extend = _extend3.default;
+_lib2.default._create = _create3.default;
+module.exports = exports.default;

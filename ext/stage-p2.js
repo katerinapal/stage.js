@@ -1,7 +1,7 @@
 /**
  * P2.js viewer for Stage.js
  */
-(function() {
+(function () {
 
   Stage.P2 = Viewer;
 
@@ -16,43 +16,40 @@
     this.world = world;
 
     this.options = {
-      maxSubSteps : 3,
-      timeStep : 1 / 60,
-      debug : false,
-      debugPolygons : false,
-      lineWidth : 0.025,
-      lineColor : '#000000',
-      fillColor : function() {
+      maxSubSteps: 3,
+      timeStep: 1 / 60,
+      debug: false,
+      debugPolygons: false,
+      lineWidth: 0.025,
+      lineColor: '#000000',
+      fillColor: function fillColor() {
         var red = Stage.Math.random(192, 256) | 0;
         var green = Stage.Math.random(192, 256) | 0;
         var blue = Stage.Math.random(192, 256) | 0;
         return "#" + red.toString(16) + green.toString(16) + blue.toString(16);
       },
-      ratio : 128,
-      get : function(key) {
+      ratio: 128,
+      get: function get(key) {
         var value = this[key];
         return typeof value === 'function' ? value() : value;
       },
-      extend : function(options) {
+      extend: function extend(options) {
         return Stage._extend({}, this, options);
       }
     }.extend(options);
 
-    world.on("addBody", function(e) {
+    world.on("addBody", function (e) {
       self.addRenderable(e.body);
-
-    }).on("removeBody", function(e) {
+    }).on("removeBody", function (e) {
       self.removeRenderable(e.body);
-
-    }).on("addSpring", function(e) {
+    }).on("addSpring", function (e) {
       self.addRenderable(e.spring);
-
-    }).on("removeSpring", function(e) {
+    }).on("removeSpring", function (e) {
       self.removeRenderable(e.spring);
     });
 
     this.drawContacts = false;
-    this.toggleContact = function(toggle) {
+    this.toggleContact = function (toggle) {
       if (arguments.length) {
         this.drawContacts = toggle;
       } else {
@@ -69,23 +66,23 @@
       this.addRenderable(world.springs[i]);
     }
 
-    this.tick(function(t) {
+    this.tick(function (t) {
       this.step(1 / 60, t / 1000);
     });
 
     this.tempv = p2.vec2.fromValues(0, 0);
   }
 
-  Viewer.prototype.step = function(t) {
+  Viewer.prototype.step = function (t) {
     this.world.step(this.options.timeStep, t, this.options.maxSubSteps);
 
     for (var i = 0; i < this.world.bodies.length; i++) {
       var body = this.world.bodies[i];
       if (body.ui) {
         body.ui.pin({
-          offsetX : body.position[0],
-          offsetY : -body.position[1],
-          rotation : -body.angle
+          offsetX: body.position[0],
+          offsetY: -body.position[1],
+          rotation: -body.angle
         });
       }
     }
@@ -113,15 +110,15 @@
       var s = Stage.Math.length(dx, dy) / spring.restLength;
 
       spring.ui.pin({
-        offsetX : x,
-        offsetY : -y,
-        scaleX : s,
-        rotation : a
+        offsetX: x,
+        offsetY: -y,
+        scaleX: s,
+        rotation: a
       });
     }
   };
 
-  Viewer.prototype.addRenderable = function(obj) {
+  Viewer.prototype.addRenderable = function (obj) {
 
     if (!this.options.debug && typeof obj.ui !== "undefined") {
       obj.ui && obj.ui.appendTo(this);
@@ -134,12 +131,11 @@
       if (obj.concavePath && !this.options.debugPolygons) {
         var texture = this.drawConvex(obj.concavePath, obj.render);
         Stage.image(texture).appendTo(obj.ui).pin({
-          handle : 0.5,
-          offsetX : obj.shapeOffsets[i] ? obj.shapeOffsets[i][0] : 0,
-          offsetY : -(obj.shapeOffsets[i] ? obj.shapeOffsets[i][1] : 0),
-          rotation : -obj.shapeAngles[i] || 0
+          handle: 0.5,
+          offsetX: obj.shapeOffsets[i] ? obj.shapeOffsets[i][0] : 0,
+          offsetY: -(obj.shapeOffsets[i] ? obj.shapeOffsets[i][1] : 0),
+          rotation: -obj.shapeAngles[i] || 0
         });
-
       } else {
         for (var i = 0; i < obj.shapes.length; i++) {
           var shape = obj.shapes[i];
@@ -148,50 +144,42 @@
           var texture = null;
           if (shape instanceof p2.Circle) {
             texture = this.drawCircle(shape.radius, options);
-
           } else if (shape instanceof p2.Particle) {
             texture = this.drawParticle(options);
-
           } else if (shape instanceof p2.Plane) {
             texture = this.drawPlane(-10, 10, 10, options);
-
           } else if (shape instanceof p2.Line) {
             texture = this.drawLine(shape.length, options);
-
           } else if (shape instanceof p2.Rectangle) {
             texture = this.drawRectangle(shape.width, shape.height, options);
-
           } else if (shape instanceof p2.Capsule) {
             texture = this.drawCapsule(shape.length, shape.radius, options);
-
           } else if (shape instanceof p2.Convex) {
             if (shape.vertices.length) {
               texture = this.drawConvex(shape.vertices, options);
             }
           }
           Stage.image(texture).appendTo(obj.ui).pin({
-            handle : 0.5,
-            offsetX : obj.shapeOffsets[i] ? obj.shapeOffsets[i][0] : 0,
-            offsetY : -(obj.shapeOffsets[i] ? obj.shapeOffsets[i][1] : 0),
-            rotation : -obj.shapeAngles[i] || 0
+            handle: 0.5,
+            offsetX: obj.shapeOffsets[i] ? obj.shapeOffsets[i][0] : 0,
+            offsetY: -(obj.shapeOffsets[i] ? obj.shapeOffsets[i][1] : 0),
+            rotation: -obj.shapeAngles[i] || 0
           });
         }
       }
-
     } else if (obj instanceof p2.Spring) {
       var texture = this.drawSpring(obj.restLength, obj.render);
       Stage.image(texture).appendTo(obj.ui).pin({
-        handle : 0.5
+        handle: 0.5
       });
     }
-
   };
 
-  Viewer.prototype.removeRenderable = function(obj) {
+  Viewer.prototype.removeRenderable = function (obj) {
     obj.ui && (obj.ui.drop ? obj.ui.drop() : obj.ui.remove());
   };
 
-  Viewer.prototype.drawLine = function(length, options) {
+  Viewer.prototype.drawLine = function (length, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -200,7 +188,7 @@
     lineWidth *= 2;
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(length + 2 * lineWidth, lineWidth, ratio);
 
       ctx.scale(ratio, ratio);
@@ -215,7 +203,7 @@
     });
   };
 
-  Viewer.prototype.drawRectangle = function(w, h, options) {
+  Viewer.prototype.drawRectangle = function (w, h, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -225,7 +213,7 @@
     var height = h + 2 * lineWidth;
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(width, height, ratio);
 
       ctx.scale(ratio, ratio);
@@ -241,7 +229,7 @@
     });
   };
 
-  Viewer.prototype.drawCircle = function(radius, options) {
+  Viewer.prototype.drawCircle = function (radius, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -251,7 +239,7 @@
     var height = radius * 2 + lineWidth * 2;
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(width, height, ratio);
 
       ctx.scale(ratio, ratio);
@@ -273,7 +261,7 @@
     });
   };
 
-  Viewer.prototype.drawParticle = function(options) {
+  Viewer.prototype.drawParticle = function (options) {
     options = this.options.extend(options);
 
     var lineWidth = options.get('lineWidth');
@@ -286,7 +274,7 @@
     var height = radius * 2 + lineWidth * 2;
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(width, height, ratio);
 
       ctx.scale(ratio, ratio);
@@ -308,7 +296,7 @@
     });
   };
 
-  Viewer.prototype.drawCapsule = function(len, radius, options) {
+  Viewer.prototype.drawCapsule = function (len, radius, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -318,18 +306,16 @@
     var height = 2 * radius + 2 * lineWidth;
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(width, height, ratio);
 
       ctx.scale(ratio, ratio);
       ctx.beginPath();
       ctx.moveTo(radius + lineWidth, lineWidth);
       ctx.lineTo(len + radius + lineWidth, lineWidth);
-      ctx.arc(len + radius + lineWidth, radius + lineWidth, radius,
-          -Math.PI / 2, Math.PI / 2);
+      ctx.arc(len + radius + lineWidth, radius + lineWidth, radius, -Math.PI / 2, Math.PI / 2);
       ctx.lineTo(radius + lineWidth, 2 * radius + lineWidth);
-      ctx.arc(radius + lineWidth, radius + lineWidth, radius, Math.PI / 2,
-          -Math.PI / 2);
+      ctx.arc(radius + lineWidth, radius + lineWidth, radius, Math.PI / 2, -Math.PI / 2);
       ctx.closePath();
       if (fillColor) {
         ctx.fillStyle = fillColor;
@@ -341,7 +327,7 @@
     });
   };
 
-  Viewer.prototype.drawSpring = function(length, options) {
+  Viewer.prototype.drawSpring = function (length, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -355,7 +341,7 @@
 
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(length, dy * 2, ratio);
 
       ctx.scale(ratio, ratio);
@@ -382,7 +368,7 @@
     });
   };
 
-  Viewer.prototype.drawPlane = function(x0, x1, max, options) {
+  Viewer.prototype.drawPlane = function (x0, x1, max, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -390,7 +376,7 @@
 
     var ratio = options.ratio;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(max * 2, max * 2, ratio);
 
       ctx.scale(ratio, ratio);
@@ -410,15 +396,14 @@
       ctx.lineWidth = lineWidth;
       ctx.lineCap = "round";
       ctx.strokeStyle = lineColor;
-      ctx.setLineDash && ctx.setLineDash([ 0.12, 0.06 ]);
-      ctx.mozDash = [ 0.12, 0.06 ];
+      ctx.setLineDash && ctx.setLineDash([0.12, 0.06]);
+      ctx.mozDash = [0.12, 0.06];
 
       ctx.stroke();
     });
-
   };
 
-  Viewer.prototype.drawConvex = function(verts, options) {
+  Viewer.prototype.drawConvex = function (verts, options) {
     options = this.options.extend(options);
     var lineWidth = options.get('lineWidth');
     var lineColor = options.get('lineColor');
@@ -428,27 +413,28 @@
       return;
     }
 
-    var width = 0, height = 0;
+    var width = 0,
+        height = 0;
     var ratio = options.ratio;
 
     for (var i = 0; i < verts.length; i++) {
-      var v = verts[i], x = v[0], y = -v[1];
+      var v = verts[i],
+          x = v[0],
+          y = -v[1];
       width = Math.max(Math.abs(x), width);
       height = Math.max(Math.abs(y), height);
     }
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
       this.size(2 * width + 2 * lineWidth, 2 * height + 2 * lineWidth, ratio);
 
       ctx.scale(ratio, ratio);
       ctx.beginPath();
       for (var i = 0; i < verts.length; i++) {
-        var v = verts[i], x = v[0] + width + lineWidth, y = -v[1] + height
-            + lineWidth;
-        if (i == 0)
-          ctx.moveTo(x, y);
-        else
-          ctx.lineTo(x, y);
+        var v = verts[i],
+            x = v[0] + width + lineWidth,
+            y = -v[1] + height + lineWidth;
+        if (i == 0) ctx.moveTo(x, y);else ctx.lineTo(x, y);
       }
 
       if (verts.length > 2) {
@@ -467,5 +453,4 @@
       ctx.stroke();
     });
   };
-
 })();

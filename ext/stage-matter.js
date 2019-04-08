@@ -1,7 +1,7 @@
 /**
  * Matter.js viewer
  */
-(function() {
+(function () {
 
   Stage.Matter = Viewer;
 
@@ -17,36 +17,33 @@
     this.label('Matter');
 
     engine.render = {
-      controller : {
-        create : function(options) {
+      controller: {
+        create: function create(options) {
           return options;
         },
-        clear : function() {
-        },
-        world : function(engine) {
-        },
-        setBackground : function() {
-        }
+        clear: function clear() {},
+        world: function world(engine) {},
+        setBackground: function setBackground() {}
       }
     };
     engine.input = {
-      mouse : {
-        sourceEvents : {}
+      mouse: {
+        sourceEvents: {}
       }
     };
 
     var self = this;
     var world = this.world = engine.world;
 
-    Events.on(world, 'addBody', function(ev) {
+    Events.on(world, 'addBody', function (ev) {
       self.addRenderable(ev.body);
     });
 
-    Events.on(world, 'removeBody', function(ev) {
+    Events.on(world, 'removeBody', function (ev) {
       self.removeRenderable(ev.body);
     });
 
-    Events.on(engine, 'afterTick', function(ev) {
+    Events.on(engine, 'afterTick', function (ev) {
       var bodies = Composite.allBodies(world);
       for (var i = 0; i < bodies.length; i++) {
         if (!bodies[i].isSleeping) {
@@ -62,14 +59,14 @@
 
     var runner = Runner.create(engine);
     var time = 0;
-    this.tick(function(t) {
+    this.tick(function (t) {
       time += t;
       Runner.tick(runner, engine, time);
       return true;
     });
   }
 
-  Viewer.prototype.addRenderable = function(body) {
+  Viewer.prototype.addRenderable = function (body) {
     if (!body.ui) {
       var texture = null;
       if (body.circleRadius) {
@@ -84,15 +81,15 @@
     }
   };
 
-  Viewer.prototype.removeRenderable = function(body) {
+  Viewer.prototype.removeRenderable = function (body) {
     if (body.ui) {
       body.ui.remove();
     }
   };
 
-  Viewer.prototype.updateRenderable = (function() {
+  Viewer.prototype.updateRenderable = function () {
     var pin = {};
-    return function(body) {
+    return function (body) {
       if (body.ui) {
         pin.offsetX = body.position.x;
         pin.offsetY = body.position.y;
@@ -100,16 +97,16 @@
         body.ui.pin(pin);
       }
     };
-  })();
+  }();
 
-  Viewer.prototype.drawCircle = function(radius, options) {
+  Viewer.prototype.drawCircle = function (radius, options) {
     var lineWidth = options.lineWidth;
 
     var width = radius * 2 + lineWidth * 2;
     var height = radius * 2 + lineWidth * 2;
     var ratio = 1;
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
 
       this.size(width, height, ratio);
 
@@ -126,37 +123,39 @@
     });
   };
 
-  Viewer.prototype.drawConvex = function(verts, base, options) {
+  Viewer.prototype.drawConvex = function (verts, base, options) {
     var lineWidth = options.lineWidth;
 
     if (!verts.length) {
       return;
     }
 
-    var x0 = base.x, y0 = base.y;
+    var x0 = base.x,
+        y0 = base.y;
 
-    var width = 0, height = 0;
+    var width = 0,
+        height = 0;
     var ratio = 1;
 
     for (var i = 0; i < verts.length; i++) {
-      var v = verts[i], x = v.x, y = v.y;
+      var v = verts[i],
+          x = v.x,
+          y = v.y;
       width = Math.max(Math.abs(x - x0), width);
       height = Math.max(Math.abs(y - y0), height);
     }
 
-    return Stage.canvas(function(ctx) {
+    return Stage.canvas(function (ctx) {
 
       this.size(2 * width + 2 * lineWidth, 2 * height + 2 * lineWidth, ratio);
 
       ctx.scale(ratio, ratio);
       ctx.beginPath();
       for (var i = 0; i < verts.length; i++) {
-        var v = verts[i], x = v.x - x0 + width + lineWidth, y = v.y - y0
-            + height + lineWidth;
-        if (i == 0)
-          ctx.moveTo(x, y);
-        else
-          ctx.lineTo(x, y);
+        var v = verts[i],
+            x = v.x - x0 + width + lineWidth,
+            y = v.y - y0 + height + lineWidth;
+        if (i == 0) ctx.moveTo(x, y);else ctx.lineTo(x, y);
       }
 
       if (verts.length > 2) {
@@ -177,25 +176,24 @@
   };
 
   var addBody = Composite.addBody;
-  Composite.addBody = function(composite, body) {
+  Composite.addBody = function (composite, body) {
     var world = composite;
-    while (world.parent)
+    while (world.parent) {
       world = world.parent;
-    Events.trigger(world, "addBody", {
-      body : body
+    }Events.trigger(world, "addBody", {
+      body: body
     });
     return addBody.apply(this, arguments);
   };
 
   var removeBody = Composite.removeBody;
-  Composite.removeBody = function(composite, body) {
+  Composite.removeBody = function (composite, body) {
     var world = composite;
-    while (world.parent)
+    while (world.parent) {
       world = world.parent;
-    Events.trigger(world, "removeBody", {
-      body : body
+    }Events.trigger(world, "removeBody", {
+      body: body
     });
     return removeBody.apply(this, arguments);
   };
-
 })();
