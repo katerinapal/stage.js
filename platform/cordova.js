@@ -1,16 +1,21 @@
-module.exports = require('../lib/');
+import lib from "../lib/";
+import Image from "../lib/image";
+import Mouse from "../lib/addon/mouse";
+import Math from "../lib/util/math";
+import _extend from "../lib/util/extend";
+import _create from "../lib/util/create";
+import "../lib/canvas";
+import "../lib/anim";
+import "../lib/str";
+import "../lib/layout";
+import "../lib/addon/tween";
+import "../lib/loader/cordova";
+export default lib;
 
-module.exports.internal = {};
+lib.internal = {};
 
-require('../lib/canvas');
-module.exports.internal.Image = require('../lib/image');
-require('../lib/anim');
-require('../lib/str');
-require('../lib/layout');
-require('../lib/addon/tween');
-module.exports.Mouse = require('../lib/addon/mouse');
-module.exports.Math = require('../lib/util/math');
-module.exports._extend = require('../lib/util/extend');
-module.exports._create = require('../lib/util/create');
-
-require('../lib/loader/cordova');
+lib.internal.Image = Image;
+lib.Mouse = Mouse;
+lib.Math = Math;
+lib._extend = _extend;
+lib._create = _create;
