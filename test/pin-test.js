@@ -1,8 +1,7 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-
-var Stage = require('../lib/tree');
-var Pin = require('../lib/pin');
+import * as expect from "./util/expect";
+import sinon from "sinon";
+import { Class as Stage } from "../lib/tree";
+import { Pin } from "../lib/pin";
 
 describe('Pin', function() {
 

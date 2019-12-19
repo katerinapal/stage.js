@@ -1,16 +1,21 @@
-module.exports = require('../lib/');
+import { anonymus } from "../lib/";
+import { Image } from "../lib/image";
+import { Mouse } from "../lib/addon/mouse";
+import { anonymus } from "../lib/util/math";
+import { createjs } from "../lib/util/create";
+import "../lib/canvas";
+import "../lib/anim";
+import "../lib/str";
+import "../lib/layout";
+import "../lib/addon/tween";
+import "../lib/loader/web";
+var anonymusBinding = anonymus;
+module.anonymusBinding = anonymus;
 
-module.exports.internal = {};
+module.anonymusBinding.internal = {};
 
-require('../lib/canvas');
-module.exports.internal.Image = require('../lib/image');
-require('../lib/anim');
-require('../lib/str');
-require('../lib/layout');
-require('../lib/addon/tween');
-module.exports.Mouse = require('../lib/addon/mouse');
-module.exports.Math = require('../lib/util/math');
-module.exports._extend = require('../lib/util/extend');
-module.exports._create = require('../lib/util/create');
-
-require('../lib/loader/web');
+module.anonymusBinding.internal.Image = Image;
+module.anonymusBinding.Mouse = Mouse;
+module.anonymusBinding.Math = anonymus;
+module.anonymusBinding._extend = require('../lib/util/extend');
+module.anonymusBinding._create = createjs;

@@ -1,8 +1,7 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-var memo = require('./util/memo');
-
-var Stage = require('../lib/tree');
+import * as expect from "./util/expect";
+import sinon from "sinon";
+import * as memo from "./util/memo";
+import { Class as Stage } from "../lib/tree";
 
 it('label', function() {
   var foo = Stage.create();

@@ -1,7 +1,6 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-
-var Stage = require('../lib/');
+import * as expect from "./util/expect";
+import sinon from "sinon";
+import { anonymus as Stage } from "../lib/";
 
 it('static methods', function() {
   expect(Stage.config).be.a('function');

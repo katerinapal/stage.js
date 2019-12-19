@@ -1,9 +1,8 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-var sandboxed = require('sandboxed-module');
-var memo = require('./util/memo');
-
-var Stage = require('../lib/');
+import * as expect from "./util/expect";
+import sinon from "sinon";
+import sandboxed from "sandboxed-module";
+import * as memo from "./util/memo";
+import { anonymus as Stage } from "../lib/";
 
 it('Mouse', function() {
   var event, elem, elemOn, doc, docOn, win, winOn;
