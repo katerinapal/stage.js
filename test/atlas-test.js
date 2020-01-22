@@ -1,10 +1,9 @@
-var expect = require('./util/expect');
-var sandboxed = require('sandboxed-module');
-var sinon = require('sinon');
-
-var Stage = require('../lib/tree');
-var Texture = require('../lib/texture');
-var Atlas = require('../lib/atlas');
+import * as expect from "./util/expect";
+import sandboxed from "sandboxed-module";
+import sinon from "sinon";
+import { Class as Stage } from "../lib/tree";
+import { Texture } from "../lib/texture";
+import { Atlas } from "../lib/atlas";
 
 var mario = {
   x : 1,
@@ -15,20 +14,20 @@ var mario = {
 
 function bemario(obj) {
 
-  expect(obj.draw).be.a('function');
+  expect.expect(obj.draw).be.a('function');
 
-  expect(obj.width).be(mario.width);
-  expect(obj.height).be(mario.height);
+  expect.expect(obj.width).be(mario.width);
+  expect.expect(obj.height).be(mario.height);
 
-  expect(obj._sx).be(mario.x);
-  expect(obj._sy).be(mario.y);
-  expect(obj._sw).be(mario.width);
-  expect(obj._sh).be(mario.height);
+  expect.expect(obj._sx).be(mario.x);
+  expect.expect(obj._sy).be(mario.y);
+  expect.expect(obj._sw).be(mario.width);
+  expect.expect(obj._sh).be(mario.height);
 
-  expect(obj._dx).be(0);
-  expect(obj._dy).be(0);
-  expect(obj._dw).be(mario.width);
-  expect(obj._dh).be(mario.height);
+  expect.expect(obj._dx).be(0);
+  expect.expect(obj._dy).be(0);
+  expect.expect(obj._dw).be(mario.width);
+  expect.expect(obj._dh).be(mario.height);
 }
 
 it('Atlas', function() {
@@ -92,7 +91,7 @@ it('Atlas', function() {
       walk : [ mario, mario, mario ]
     }
   }).select('walk').array();
-  expect(selected.length).be(3);
+  expect.expect(selected.length).be(3);
   bemario(selected[0]);
 
   selected = new Atlas({
@@ -101,7 +100,7 @@ it('Atlas', function() {
       walk : [ 'mario', 'mario', 'mario' ]
     }
   }).select('walk').array();
-  expect(selected.length).be(3);
+  expect.expect(selected.length).be(3);
   bemario(selected[0]);
 });
 
@@ -129,13 +128,13 @@ describe('Stage.texture()', function() {
     bemario(selected);
 
     selected = Stage.texture('mario').array(obj = []);
-    expect(selected).be(obj);
-    expect(selected.length).be(1);
+    expect.expect(selected).be(obj);
+    expect.expect(selected.length).be(1);
     bemario(selected[0]);
 
     selected = Stage.texture('walk').array(obj = []);
-    expect(selected).be(obj);
-    expect(selected.length).be(3);
+    expect.expect(selected).be(obj);
+    expect.expect(selected.length).be(3);
     bemario(selected[0]);
   });
 
@@ -165,10 +164,10 @@ describe('Stage.texture()', function() {
     var dark = Stage.texture("main:color_dark").one();
     var both = Stage.texture("main:color_").array();
 
-    expect(dark).be.an('object');
-    expect(both).be.an('array');
-    expect(both.length).be(2);
-    expect(both[0]).be.an('object');
-    expect(both[1]).be.an('object');
+    expect.expect(dark).be.an('object');
+    expect.expect(both).be.an('array');
+    expect.expect(both.length).be(2);
+    expect.expect(both[0]).be.an('object');
+    expect.expect(both[1]).be.an('object');
   });
 });

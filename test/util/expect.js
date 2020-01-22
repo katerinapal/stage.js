@@ -1,4 +1,4 @@
-var expect = require('expect.js');
+import expect from "expect.js";
 
 expect.Assertion.prototype.list = function(obj, fn) {
   if (typeof fn === 'function') {
