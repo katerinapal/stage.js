@@ -1,8 +1,32 @@
-import * as expect from "./util/expect";
-import sinon from "sinon";
-import * as Stage from "../lib/";
+var _expect = require("./util/expect");
 
-it('static methods', function() {
+var expect = _interopRequireWildcard(_expect);
+
+var _sinon = require("sinon");
+
+var _sinon2 = _interopRequireDefault(_sinon);
+
+var _lib = require("../lib/");
+
+var Stage = _interopRequireWildcard(_lib);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  } else {
+    var newObj = {};if (obj != null) {
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+      }
+    }newObj.default = obj;return newObj;
+  }
+}
+
+it('static methods', function () {
   expect.expect(Stage.config).be.a('function');
   expect.expect(Stage.preload).be.a('function');
   expect.expect(Stage.start).be.a('function');

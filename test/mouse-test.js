@@ -1,39 +1,56 @@
-import * as expect from "./util/expect";
-import sinon from "sinon";
-import sandboxed from "sandboxed-module";
-import * as memo from "./util/memo";
-import * as Stage from "../lib/";
+var _expect = require("./util/expect");
 
-it('Mouse', function() {
+var expect = _interopRequireWildcard(_expect);
+
+var _sinon = require("sinon");
+
+var _sinon2 = _interopRequireDefault(_sinon);
+
+var _sandboxedModule = require("sandboxed-module");
+
+var _sandboxedModule2 = _interopRequireDefault(_sandboxedModule);
+
+var _memo = require("./util/memo");
+
+var memo = _interopRequireWildcard(_memo);
+
+var _lib = require("../lib/");
+
+var Stage = _interopRequireWildcard(_lib);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+it('Mouse', function () {
   var event, elem, elemOn, doc, docOn, win, winOn;
 
-  var Mouse = sandboxed.require('../lib/addon/mouse', {
-    locals : {
-      document : doc = {
-        addEventListener : docOn = sinon.stub()
+  var Mouse = _sandboxedModule2.default.require('../lib/addon/mouse', {
+    locals: {
+      document: doc = {
+        addEventListener: docOn = _sinon2.default.stub()
       },
-      window : win = {
-        document : doc,
-        addEventListener : winOn = sinon.stub()
+      window: win = {
+        document: doc,
+        addEventListener: winOn = _sinon2.default.stub()
       }
     }
   });
 
-  var node = memo.memo(function(id) {
+  var node = memo.memo(function (id) {
     return Stage.create().label(id).pin({
-      width : 400,
-      height : 300
+      width: 400,
+      height: 300
     });
   });
-  var listener = memo.memo(function(id) {
-    return sinon.spy();
+  var listener = memo.memo(function (id) {
+    return _sinon2.default.spy();
   });
-  var stage = node(1).append(node(11),
-      node(12).append(node(121).hide(), node(122), node(123)), node(13));
+  var stage = node(1).append(node(11), node(12).append(node(121).hide(), node(122), node(123)), node(13));
 
-  stage.viewport = function() {
+  stage.viewport = function () {
     return {
-      ratio : 1
+      ratio: 1
     };
   };
 
@@ -43,23 +60,23 @@ it('Mouse', function() {
   node(1).on(Mouse.MOVE, listener('move-' + 1));
 
   Mouse.subscribe(stage, elem = {
-    addEventListener : elemOn = sinon.stub(),
-    getBoundingClientRect : function() {
+    addEventListener: elemOn = _sinon2.default.stub(),
+    getBoundingClientRect: function getBoundingClientRect() {
       return {
-        left : 0,
-        top : 0
+        left: 0,
+        top: 0
       };
     },
-    clientLeft : 0,
-    clientTop : 0
+    clientLeft: 0,
+    clientTop: 0
   });
 
-  expect.expect(elemOn.args.pluck(0)).list(
-      [ 'touchstart', 'touchend', 'touchmove', 'touchcancel', 'mousedown',
-          'mouseup', 'mousemove' ]);
+  expect.expect(elemOn.args.pluck(0)).list(['touchstart', 'touchend', 'touchmove', 'touchcancel', 'mousedown', 'mouseup', 'mousemove']);
   expect.expect(elemOn.alwaysCalledOn(elem)).ok();
 
-  var down = elemOn.args[0][1], up = elemOn.args[1][1], move;
+  var down = elemOn.args[0][1],
+      up = elemOn.args[1][1],
+      move;
 
   down.call(elem, event = Event('mousedown', 40, 30));
   expect.expect(listener('start-' + 1).callCount).be(1);
@@ -87,9 +104,9 @@ it('Mouse', function() {
 
 function Event(type, x, y) {
   return {
-    pageX : x,
-    pageY : y,
-    type : type,
-    preventDefault : sinon.stub()
+    pageX: x,
+    pageY: y,
+    type: type,
+    preventDefault: _sinon2.default.stub()
   };
 }
