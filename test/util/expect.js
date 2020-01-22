@@ -1,4 +1,4 @@
-var expect = require('expect.js');
+import expect from "expect.js";
 
 expect.Assertion.prototype.list = function(obj, fn) {
   if (typeof fn === 'function') {
@@ -31,7 +31,7 @@ expect.Assertion.prototype.list = function(obj, fn) {
   return this;
 };
 
-module.exports = expect;
+export { expect };
 
 Array.prototype.pluck = function(key) {
   return this.map(function(obj) {
