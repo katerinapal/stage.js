@@ -1,83 +1,93 @@
-import * as expect from "./util/expect";
-import sinon from "sinon";
-import { Class as Stage } from "../lib/tree";
-import "../lib/event";
+var _expect = require("./util/expect");
 
-describe('Event', function() {
+var expect = _interopRequireWildcard(_expect);
 
-  it('on/off', function() {
-    var hello = sinon.stub();
-    var open = sinon.stub();
+var _sinon = require("sinon");
 
-    var door = Stage.create();
+var _sinon2 = _interopRequireDefault(_sinon);
 
-    expect.expect(door.listeners('knock')).not.ok();
+var _tree = require("../lib/tree");
 
-    door.on('knock', hello);
-    expect.expect(door.listeners('knock')).eql([ hello ]);
+require("../lib/event");
 
-    door.on('knock', open);
-    expect.expect(door.listeners('knock')).eql([ hello, open ]);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    door.off('knock', open);
-    expect.expect(door.listeners('knock')).eql([ hello ]);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-    door.off('knock', hello);
-    expect.expect(door.listeners('knock')).not.ok();
+describe('Event', function () {
 
-    door.on('knock ring', open);
-    expect.expect(door.listeners('knock')).eql([ open ]);
-    expect.expect(door.listeners('ring')).eql([ open ]);
+    it('on/off', function () {
+        var hello = _sinon2.default.stub();
+        var open = _sinon2.default.stub();
 
-    door.off('knock ring', open);
+        var door = _tree.Class.create();
 
-    expect.expect(door.listeners('knock')).not.ok();
-    expect.expect(door.listeners('ring')).not.ok();
-  });
+        expect.expect(door.listeners('knock')).not.ok();
 
-  it('flag', function() {
-    var foo = Stage.create();
-    var bar = Stage.create();
-    var baz = Stage.create();
-    var qux = Stage.create();
+        door.on('knock', hello);
+        expect.expect(door.listeners('knock')).eql([hello]);
 
-    var ring = sinon.stub();
-    baz.on('ring', ring);
-    expect.expect(baz._flag('ring')).equal(1);
+        door.on('knock', open);
+        expect.expect(door.listeners('knock')).eql([hello, open]);
 
-    baz.off('ring', ring);
-    expect.expect(baz._flag('ring')).equal(0);
+        door.off('knock', open);
+        expect.expect(door.listeners('knock')).eql([hello]);
 
-    baz.on('knock', sinon.stub());
-    expect.expect(baz._flag('knock')).equal(1);
+        door.off('knock', hello);
+        expect.expect(door.listeners('knock')).not.ok();
 
-    qux.on('knock', sinon.stub());
-    qux.on('knock', sinon.stub());
-    expect.expect(qux._flag('knock')).equal(2);
+        door.on('knock ring', open);
+        expect.expect(door.listeners('knock')).eql([open]);
+        expect.expect(door.listeners('ring')).eql([open]);
 
-    bar.appendTo(foo);
+        door.off('knock ring', open);
 
-    baz.appendTo(bar);
-    qux.appendTo(bar);
+        expect.expect(door.listeners('knock')).not.ok();
+        expect.expect(door.listeners('ring')).not.ok();
+    });
 
-    expect.expect(bar._flag('knock')).equal(2);
-    expect.expect(foo._flag('knock')).equal(1);
+    it('flag', function () {
+        var foo = _tree.Class.create();
+        var bar = _tree.Class.create();
+        var baz = _tree.Class.create();
+        var qux = _tree.Class.create();
 
-    baz.remove();
-    expect.expect(bar._flag('knock')).equal(1);
-    expect.expect(foo._flag('knock')).equal(1);
+        var ring = _sinon2.default.stub();
+        baz.on('ring', ring);
+        expect.expect(baz._flag('ring')).equal(1);
 
-    qux.remove();
-    expect.expect(bar._flag('knock')).equal(0);
-    expect.expect(foo._flag('knock')).equal(0);
+        baz.off('ring', ring);
+        expect.expect(baz._flag('ring')).equal(0);
 
-    bar.remove();
+        baz.on('knock', _sinon2.default.stub());
+        expect.expect(baz._flag('knock')).equal(1);
 
-    foo.append(bar, baz, qux);
-    expect.expect(foo._flag('knock')).equal(2);
+        qux.on('knock', _sinon2.default.stub());
+        qux.on('knock', _sinon2.default.stub());
+        expect.expect(qux._flag('knock')).equal(2);
 
-    foo.empty();
-    expect.expect(foo._flag('knock')).equal(0);
-  });
+        bar.appendTo(foo);
 
+        baz.appendTo(bar);
+        qux.appendTo(bar);
+
+        expect.expect(bar._flag('knock')).equal(2);
+        expect.expect(foo._flag('knock')).equal(1);
+
+        baz.remove();
+        expect.expect(bar._flag('knock')).equal(1);
+        expect.expect(foo._flag('knock')).equal(1);
+
+        qux.remove();
+        expect.expect(bar._flag('knock')).equal(0);
+        expect.expect(foo._flag('knock')).equal(0);
+
+        bar.remove();
+
+        foo.append(bar, baz, qux);
+        expect.expect(foo._flag('knock')).equal(2);
+
+        foo.empty();
+        expect.expect(foo._flag('knock')).equal(0);
+    });
 });

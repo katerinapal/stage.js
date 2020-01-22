@@ -1,11 +1,24 @@
-import * as expect from "./util/expect";
-import sinon from "sinon";
-import * as Stage from "../lib";
-import { Tween } from "../lib/addon/tween";
+var _expect = require("./util/expect");
 
-describe('Tween', function() {
+var expect = _interopRequireWildcard(_expect);
 
-  it('node.tween()', function() {
+var _sinon = require("sinon");
+
+var _sinon2 = _interopRequireDefault(_sinon);
+
+var _lib = require("../lib");
+
+var Stage = _interopRequireWildcard(_lib);
+
+var _tween = require("../lib/addon/tween");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+describe('Tween', function () {
+
+  it('node.tween()', function () {
     var node = Stage.create();
     var m = node.tween();
     expect.expect(node._tweens[0]).be(m);
@@ -22,7 +35,7 @@ describe('Tween', function() {
     expect.expect(node._tweens[1]).be(o);
   });
 
-  it('tween.tween()', function() {
+  it('tween.tween()', function () {
     var node = Stage.create();
     var m = node.tween();
 
@@ -36,5 +49,4 @@ describe('Tween', function() {
     expect.expect(n._duration).be(500);
     expect.expect(n._delay).be(100);
   });
-
 });
