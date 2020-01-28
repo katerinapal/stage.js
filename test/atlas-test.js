@@ -1,10 +1,9 @@
-var expect = require('./util/expect');
-var sandboxed = require('sandboxed-module');
-var sinon = require('sinon');
-
-var Stage = require('../lib/tree');
-var Texture = require('../lib/texture');
-var Atlas = require('../lib/atlas');
+import { expect } from "./util/expect";
+import sandboxed from "sandboxed-module";
+import sinon from "sinon";
+import { Class as Stage } from "../lib/tree";
+import { Texture } from "../lib/texture";
+import { Atlas } from "../lib/atlas";
 
 var mario = {
   x : 1,
