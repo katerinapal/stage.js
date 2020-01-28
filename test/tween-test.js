@@ -1,40 +1,46 @@
-import { expect } from "./util/expect";
-import sinon from "sinon";
-import { indexjs as Stage } from "../lib";
-import { Tween } from "../lib/addon/tween";
+var _expect = require("./util/expect");
 
-describe('Tween', function() {
+var _sinon = require("sinon");
 
-  it('node.tween()', function() {
-    var node = Stage.create();
+var _sinon2 = _interopRequireDefault(_sinon);
+
+var _lib = require("../lib");
+
+var _tween = require("../lib/addon/tween");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('Tween', function () {
+
+  it('node.tween()', function () {
+    var node = _lib.indexjs.create();
     var m = node.tween();
-    expect(node._tweens[0]).be(m);
-    expect(m._duration).be(400);
-    expect(m._delay).be(0);
+    (0, _expect.expect)(node._tweens[0]).be(m);
+    (0, _expect.expect)(m._duration).be(400);
+    (0, _expect.expect)(m._delay).be(0);
 
     var n = node.tween(500, 100);
-    expect(node._tweens[0]).be(n);
-    expect(n._duration).be(500);
-    expect(n._delay).be(100);
+    (0, _expect.expect)(node._tweens[0]).be(n);
+    (0, _expect.expect)(n._duration).be(500);
+    (0, _expect.expect)(n._delay).be(100);
 
     var o = node.tween(true);
-    expect(node._tweens[0]).be(n);
-    expect(node._tweens[1]).be(o);
+    (0, _expect.expect)(node._tweens[0]).be(n);
+    (0, _expect.expect)(node._tweens[1]).be(o);
   });
 
-  it('tween.tween()', function() {
-    var node = Stage.create();
+  it('tween.tween()', function () {
+    var node = _lib.indexjs.create();
     var m = node.tween();
 
     var n = m.tween();
-    expect(m._next).be(n);
-    expect(n._duration).be(400);
-    expect(n._delay).be(0);
+    (0, _expect.expect)(m._next).be(n);
+    (0, _expect.expect)(n._duration).be(400);
+    (0, _expect.expect)(n._delay).be(0);
 
     var n = m.tween(500, 100);
-    expect(m._next).be(n);
-    expect(n._duration).be(500);
-    expect(n._delay).be(100);
+    (0, _expect.expect)(m._next).be(n);
+    (0, _expect.expect)(n._duration).be(500);
+    (0, _expect.expect)(n._delay).be(100);
   });
-
 });
