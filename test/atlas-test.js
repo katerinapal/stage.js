@@ -1,10 +1,9 @@
-var expect = require('./util/expect');
-var sandboxed = require('sandboxed-module');
-var sinon = require('sinon');
-
-var Stage = require('../lib/tree');
-var Texture = require('../lib/texture');
-var Atlas = require('../lib/atlas');
+import { expect } from "./util/expect";
+import sandboxed from "sandboxed-module";
+import sinon from "sinon";
+import { Class as Stage } from "../lib/tree";
+import { Texture } from "../lib/texture";
+import { Atlas } from "../lib/atlas";
 
 var mario = {
   x : 1,
@@ -109,7 +108,7 @@ describe('Stage.texture()', function() {
   it('atlas.textures', function() {
     var Stage = sandboxed.require('../lib/');
 
-    Stage.atlas({
+    Stage.Stage.atlas({
       name : 'name',
       textures : {
         'mario' : mario,
@@ -119,21 +118,21 @@ describe('Stage.texture()', function() {
 
     var obj, selected;
 
-    selected = Stage.texture('name:mario').one();
+    selected = Stage.Stage.texture('name:mario').one();
     bemario(selected);
 
-    selected = Stage.texture('mario').one();
+    selected = Stage.Stage.texture('mario').one();
     bemario(selected);
 
-    selected = Stage.texture('walk').one();
+    selected = Stage.Stage.texture('walk').one();
     bemario(selected);
 
-    selected = Stage.texture('mario').array(obj = []);
+    selected = Stage.Stage.texture('mario').array(obj = []);
     expect(selected).be(obj);
     expect(selected.length).be(1);
     bemario(selected[0]);
 
-    selected = Stage.texture('walk').array(obj = []);
+    selected = Stage.Stage.texture('walk').array(obj = []);
     expect(selected).be(obj);
     expect(selected.length).be(3);
     bemario(selected[0]);
@@ -142,7 +141,7 @@ describe('Stage.texture()', function() {
   it('atlas.cutouts', function() {
     var Stage = sandboxed.require('../lib/');
 
-    Stage.atlas({
+    Stage.Stage.atlas({
       name : "main",
       // imagePath : "main.png",
       // imageRatio : 4,
@@ -162,8 +161,8 @@ describe('Stage.texture()', function() {
       } ]
     });
 
-    var dark = Stage.texture("main:color_dark").one();
-    var both = Stage.texture("main:color_").array();
+    var dark = Stage.Stage.texture("main:color_dark").one();
+    var both = Stage.Stage.texture("main:color_").array();
 
     expect(dark).be.an('object');
     expect(both).be.an('array');
