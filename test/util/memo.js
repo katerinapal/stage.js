@@ -1,4 +1,7 @@
-var exportedObject = function(create) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var exportedObject = function exportedObject(create) {
   var memo = {};
   function fn(key) {
     if (Array.isArray(key)) {
@@ -15,7 +18,7 @@ var exportedObject = function(create) {
   }
   function list(ids) {
     if (Array.isArray(ids)) {
-      return ids.map(function(id) {
+      return ids.map(function (id) {
         return memo[id];
       });
     }
@@ -23,4 +26,5 @@ var exportedObject = function(create) {
   return fn;
 };
 
-export { exportedObject as memojs };;
+exports.memojs = exportedObject;
+;
