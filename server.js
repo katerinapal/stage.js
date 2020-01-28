@@ -1,7 +1,7 @@
-var Path = require('path');
-var Express = require('express');
-var Browserify = require('browserify-middleware');
-var ServeIndex = require('serve-index')
+import Path from "path";
+import Express from "express";
+import Browserify from "browserify-middleware";
+import ServeIndex from "serve-index";
 
 var app = Express();
 
