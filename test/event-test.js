@@ -1,8 +1,7 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-
-var Stage = require('../lib/tree');
-require('../lib/event');
+import { expect } from "./util/expect";
+import sinon from "sinon";
+import { Class as Stage } from "../lib/tree";
+import "../lib/event";
 
 describe('Event', function() {
 
