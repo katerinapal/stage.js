@@ -1,17 +1,25 @@
-import { expect } from "./util/expect";
-import sinon from "sinon";
-import { indexjs as Stage } from "../lib/";
+var _expect = require("./util/expect");
 
-it('static methods', function() {
-  expect(Stage.config).be.a('function');
-  expect(Stage.preload).be.a('function');
-  expect(Stage.start).be.a('function');
-  expect(Stage.pause).be.a('function');
-  expect(Stage.resume).be.a('function');
-  expect(Stage.app).be.a('function');
-  expect(Stage.atlas).be.a('function');
+var _sinon = require("sinon");
 
-  expect(Stage.create).be.a('function');
+var _sinon2 = _interopRequireDefault(_sinon);
+
+var _lib = require("../lib/");
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+it('static methods', function () {
+  (0, _expect.expect)(_lib.indexjs.config).be.a('function');
+  (0, _expect.expect)(_lib.indexjs.preload).be.a('function');
+  (0, _expect.expect)(_lib.indexjs.start).be.a('function');
+  (0, _expect.expect)(_lib.indexjs.pause).be.a('function');
+  (0, _expect.expect)(_lib.indexjs.resume).be.a('function');
+  (0, _expect.expect)(_lib.indexjs.app).be.a('function');
+  (0, _expect.expect)(_lib.indexjs.atlas).be.a('function');
+
+  (0, _expect.expect)(_lib.indexjs.create).be.a('function');
 
   // expect(Stage.stage).be.a('function');
   // expect(Stage.image).be.a('function');
