@@ -1,17 +1,27 @@
-import expect from "expect.js";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.expect = undefined;
 
-expect.Assertion.prototype.list = function(obj, fn) {
-  if (typeof fn === 'function') {
-  } else if (typeof fn === 'string') {
-    fn = (function(id) {
-      return function(obj) {
+var _expect = require('expect.js');
+
+var _expect2 = _interopRequireDefault(_expect);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+_expect2.default.Assertion.prototype.list = function (obj, fn) {
+  if (typeof fn === 'function') {} else if (typeof fn === 'string') {
+    fn = function (id) {
+      return function (obj) {
         var value = obj[id];
         return typeof value === 'function' ? value.call(obj) : value;
       };
-    })(fn);
+    }(fn);
   } else {
-    fn = function(obj) {
-      return expect.stringify(obj, false, 1);
+    fn = function fn(obj) {
+      return _expect2.default.stringify(obj, false, 1);
     };
   }
   var match = true;
@@ -23,18 +33,18 @@ expect.Assertion.prototype.list = function(obj, fn) {
   } else {
     match = false;
   }
-  this.assert(match, function() {
+  this.assert(match, function () {
     return 'expected ' + this.obj.map(fn) + ' to list ' + obj.map(fn);
-  }, function() {
+  }, function () {
     return 'expected ' + this.obj.map(fn) + ' to not list ' + obj.map(fn);
   });
   return this;
 };
 
-export { expect };
+exports.expect = _expect2.default;
 
-Array.prototype.pluck = function(key) {
-  return this.map(function(obj) {
+Array.prototype.pluck = function (key) {
+  return this.map(function (obj) {
     return obj[key];
   });
 };

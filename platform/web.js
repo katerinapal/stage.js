@@ -1,21 +1,33 @@
-import { indexjs } from "../lib/";
-import { Image } from "../lib/image";
-import { Mouse } from "../lib/addon/mouse";
-import { mathjs } from "../lib/util/math";
-import { extendjs } from "../lib/util/extend";
-import { createjs } from "../lib/util/create";
-import "../lib/canvas";
-import "../lib/anim";
-import "../lib/str";
-import "../lib/layout";
-import "../lib/addon/tween";
-import "../lib/loader/web";
-module.exports = indexjs;
+var _lib = require("../lib/");
+
+var _image = require("../lib/image");
+
+var _mouse = require("../lib/addon/mouse");
+
+var _math = require("../lib/util/math");
+
+var _extend = require("../lib/util/extend");
+
+var _create = require("../lib/util/create");
+
+require("../lib/canvas");
+
+require("../lib/anim");
+
+require("../lib/str");
+
+require("../lib/layout");
+
+require("../lib/addon/tween");
+
+require("../lib/loader/web");
+
+module.exports = _lib.indexjs;
 
 module.exports.internal = {};
 
-module.exports.internal.Image = Image;
-module.exports.Mouse = Mouse;
-module.exports.Math = mathjs;
-module.exports._extend = extendjs;
-module.exports._create = createjs;
+module.exports.internal.Image = _image.Image;
+module.exports.Mouse = _mouse.Mouse;
+module.exports.Math = _math.mathjs;
+module.exports._extend = _extend.extendjs;
+module.exports._create = _create.createjs;
