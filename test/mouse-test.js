@@ -1,9 +1,8 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-var sandboxed = require('sandboxed-module');
-var memo = require('./util/memo');
-
-var Stage = require('../lib/');
+import { expect } from "./util/expect";
+import sinon from "sinon";
+import sandboxed from "sandboxed-module";
+import { memojs as memo } from "./util/memo";
+import { indexjs as Stage } from "../lib/";
 
 it('Mouse', function() {
   var event, elem, elemOn, doc, docOn, win, winOn;
@@ -38,12 +37,12 @@ it('Mouse', function() {
     };
   };
 
-  node(1).on(Mouse.CLICK, listener('click-' + 1));
-  node(1).on(Mouse.START, listener('start-' + 1));
-  node(1).on(Mouse.END, listener('end-' + 1));
-  node(1).on(Mouse.MOVE, listener('move-' + 1));
+  node(1).on(Mouse.mouse_CLICK, listener('click-' + 1));
+  node(1).on(Mouse.mouse_START, listener('start-' + 1));
+  node(1).on(Mouse.mouse_END, listener('end-' + 1));
+  node(1).on(Mouse.mouse_MOVE, listener('move-' + 1));
 
-  Mouse.subscribe(stage, elem = {
+  Mouse.mouse_subscribe(stage, elem = {
     addEventListener : elemOn = sinon.stub(),
     getBoundingClientRect : function() {
       return {

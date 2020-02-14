@@ -1,4 +1,4 @@
-module.exports = function(create) {
+var exportedObject = function(create) {
   var memo = {};
   function fn(key) {
     if (Array.isArray(key)) {
@@ -22,3 +22,5 @@ module.exports = function(create) {
   }
   return fn;
 };
+
+export { exportedObject as memojs };;
