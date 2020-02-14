@@ -1,8 +1,7 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-
-var Stage = require('../lib');
-var Tween = require('../lib/addon/tween');
+import { expect } from "./util/expect";
+import sinon from "sinon";
+import { indexjs as Stage } from "../lib";
+import { Tween } from "../lib/addon/tween";
 
 describe('Tween', function() {
 
