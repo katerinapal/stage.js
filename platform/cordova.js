@@ -1,9 +1,15 @@
-import "../lib/canvas";
-import "../lib/anim";
-import "../lib/str";
-import "../lib/layout";
-import "../lib/addon/tween";
-import "../lib/loader/cordova";
+require("../lib/canvas");
+
+require("../lib/anim");
+
+require("../lib/str");
+
+require("../lib/layout");
+
+require("../lib/addon/tween");
+
+require("../lib/loader/cordova");
+
 module.exports = indexjs;
 
 module.exports.internal = {};
