@@ -1,3 +1,4 @@
+"use strict";
 var expect = require('./util/expect');
 var sinon = require('sinon');
 

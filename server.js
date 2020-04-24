@@ -1,3 +1,4 @@
+"use strict";
 var Path = require('path');
 var Express = require('express');
 var Browserify = require('browserify-middleware');
