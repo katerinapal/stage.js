@@ -1,18 +1,17 @@
-var expect = require('./util/expect');
-var sinon = require('sinon');
-
-var Stage = require('../lib/');
+import { expect as utilexpect_expectjs } from "./util/expect";
+import ext_sinon_sinon from "sinon";
+import { indexjs as index_indexjsjs } from "../lib/";
 
 it('static methods', function() {
-  expect(Stage.config).be.a('function');
-  expect(Stage.preload).be.a('function');
-  expect(Stage.start).be.a('function');
-  expect(Stage.pause).be.a('function');
-  expect(Stage.resume).be.a('function');
-  expect(Stage.app).be.a('function');
-  expect(Stage.atlas).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.config).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.preload).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.start).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.pause).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.resume).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.app).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.atlas).be.a('function');
 
-  expect(Stage.create).be.a('function');
+  utilexpect_expectjs(index_indexjsjs.create).be.a('function');
 
   // expect(Stage.stage).be.a('function');
   // expect(Stage.image).be.a('function');

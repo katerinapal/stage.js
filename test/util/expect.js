@@ -1,6 +1,6 @@
-var expect = require('expect.js');
+import ext_expect_expect from "expect.js";
 
-expect.Assertion.prototype.list = function(obj, fn) {
+ext_expect_expect.Assertion.prototype.list = function(obj, fn) {
   if (typeof fn === 'function') {
   } else if (typeof fn === 'string') {
     fn = (function(id) {
@@ -11,7 +11,7 @@ expect.Assertion.prototype.list = function(obj, fn) {
     })(fn);
   } else {
     fn = function(obj) {
-      return expect.stringify(obj, false, 1);
+      return ext_expect_expect.stringify(obj, false, 1);
     };
   }
   var match = true;
@@ -31,10 +31,13 @@ expect.Assertion.prototype.list = function(obj, fn) {
   return this;
 };
 
-module.exports = expect;
+var expect_expect;
+
+expect_expect = ext_expect_expect;
 
 Array.prototype.pluck = function(key) {
   return this.map(function(obj) {
     return obj[key];
   });
 };
+export { expect_expect as expect };

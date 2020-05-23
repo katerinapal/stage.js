@@ -1,24 +1,23 @@
-var fs = require('fs');
-var browserify = require('browserify');
+import ext_fs_fs from "fs";
+import ext_browserify_browserify from "browserify";
+import ext_gulp_gulp from "gulp";
+import ext_gulputil_gutil from "gulp-util";
+import ext_gulpuglify_uglify from "gulp-uglify";
+import ext_gulpheader_header from "gulp-header";
+import ext_gulprename_rename from "gulp-rename";
+import ext_vinyltransform_transform from "vinyl-transform";
+import ext_vinylsourcestream_source from "vinyl-source-stream";
+import ext_vinylbuffer_buffer from "vinyl-buffer";
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var uglify = require('gulp-uglify');
-var header = require('gulp-header');
-var rename = require('gulp-rename');
-var transform = require('vinyl-transform');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
+var pkg = {};
 
-var pkg = require('./package.json');
-
-gulp.task('default', [ 'web', 'cordova' ]);
-gulp.task('web', dist([ './platform/web' ], 'web'));
-gulp.task('cordova', dist([ './platform/cordova' ], 'cordova'));
+ext_gulp_gulp.task('default', [ 'web', 'cordova' ]);
+ext_gulp_gulp.task('web', dist([ './platform/web' ], 'web'));
+ext_gulp_gulp.task('cordova', dist([ './platform/cordova' ], 'cordova'));
 
 function dist(files, name) {
   return function() {
-    var task = browserify({
+    var task = ext_browserify_browserify({
       entries : files,
       standalone : 'Stage'
     });
@@ -33,21 +32,21 @@ function dist(files, name) {
     }, 'uglifyify');
     task = task.bundle();
     task.on('error', function(err) {
-      console.log(gutil.colors.red(err.message));
+      console.log(ext_gulputil_gutil.colors.red(err.message));
       this.emit('end');
     });
-    task = task.pipe(source('stage.' + name + '.js')).pipe(buffer()); // vinylify
-    task = task.pipe(header(fs.readFileSync('lib/license.js'), {
+    task = task.pipe(ext_vinylsourcestream_source('stage.' + name + '.js')).pipe(ext_vinylbuffer_buffer()); // vinylify
+    task = task.pipe(ext_gulpheader_header(ext_fs_fs.readFileSync('lib/license.js'), {
       pkg : pkg
     }));
-    task = task.pipe(gulp.dest('dist'));
-    task = task.pipe(rename('stage.' + name + '.min.js'));
-    task = task.pipe(uglify({
+    task = task.pipe(ext_gulp_gulp.dest('dist'));
+    task = task.pipe(ext_gulprename_rename('stage.' + name + '.min.js'));
+    task = task.pipe(ext_gulpuglify_uglify({
       output : {
         comments : /(license|copyright)/i
       }
     }));
-    task = task.pipe(gulp.dest('dist'));
+    task = task.pipe(ext_gulp_gulp.dest('dist'));
     return task;
   };
 }

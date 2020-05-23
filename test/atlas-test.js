@@ -1,10 +1,7 @@
-var expect = require('./util/expect');
-var sandboxed = require('sandboxed-module');
-var sinon = require('sinon');
-
-var Stage = require('../lib/tree');
-var Texture = require('../lib/texture');
-var Atlas = require('../lib/atlas');
+import { expect as utilexpect_expectjs } from "./util/expect";
+import ext_sandboxedmodule_sandboxed from "sandboxed-module";
+import ext_sinon_sinon from "sinon";
+import { Atlas as libatlas_Atlasjs } from "../lib/atlas";
 
 var mario = {
   x : 1,
@@ -15,33 +12,33 @@ var mario = {
 
 function bemario(obj) {
 
-  expect(obj.draw).be.a('function');
+  utilexpect_expectjs(obj.draw).be.a('function');
 
-  expect(obj.width).be(mario.width);
-  expect(obj.height).be(mario.height);
+  utilexpect_expectjs(obj.width).be(mario.width);
+  utilexpect_expectjs(obj.height).be(mario.height);
 
-  expect(obj._sx).be(mario.x);
-  expect(obj._sy).be(mario.y);
-  expect(obj._sw).be(mario.width);
-  expect(obj._sh).be(mario.height);
+  utilexpect_expectjs(obj._sx).be(mario.x);
+  utilexpect_expectjs(obj._sy).be(mario.y);
+  utilexpect_expectjs(obj._sw).be(mario.width);
+  utilexpect_expectjs(obj._sh).be(mario.height);
 
-  expect(obj._dx).be(0);
-  expect(obj._dy).be(0);
-  expect(obj._dw).be(mario.width);
-  expect(obj._dh).be(mario.height);
+  utilexpect_expectjs(obj._dx).be(0);
+  utilexpect_expectjs(obj._dy).be(0);
+  utilexpect_expectjs(obj._dw).be(mario.width);
+  utilexpect_expectjs(obj._dh).be(mario.height);
 }
 
 it('Atlas', function() {
   var selected;
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       mario : mario
     }
   }).select('mario').one();
   bemario(selected);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       mario : function() {
         return mario;
@@ -50,7 +47,7 @@ it('Atlas', function() {
   }).select('mario').one();
   bemario(selected);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       mario : mario,
       him : 'mario'
@@ -58,7 +55,7 @@ it('Atlas', function() {
   }).select('mario').one();
   bemario(selected);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       mario : mario,
       him : function() {
@@ -68,7 +65,7 @@ it('Atlas', function() {
   }).select('mario').one();
   bemario(selected);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       char : {
         mario : mario
@@ -77,7 +74,7 @@ it('Atlas', function() {
   }).select('char').one('mario');
   bemario(selected);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       mario : mario,
       char : {
@@ -87,29 +84,29 @@ it('Atlas', function() {
   }).select('char').one('mario');
   bemario(selected);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       walk : [ mario, mario, mario ]
     }
   }).select('walk').array();
-  expect(selected.length).be(3);
+  utilexpect_expectjs(selected.length).be(3);
   bemario(selected[0]);
 
-  selected = new Atlas({
+  selected = new libatlas_Atlasjs({
     textures : {
       mario : mario,
       walk : [ 'mario', 'mario', 'mario' ]
     }
   }).select('walk').array();
-  expect(selected.length).be(3);
+  utilexpect_expectjs(selected.length).be(3);
   bemario(selected[0]);
 });
 
 describe('Stage.texture()', function() {
   it('atlas.textures', function() {
-    var Stage = sandboxed.require('../lib/');
+    var Stage = ext_sandboxedmodule_sandboxed.require('../lib/');
 
-    Stage.atlas({
+    Stage.indexjs.atlas({
       name : 'name',
       textures : {
         'mario' : mario,
@@ -119,30 +116,30 @@ describe('Stage.texture()', function() {
 
     var obj, selected;
 
-    selected = Stage.texture('name:mario').one();
+    selected = Stage.indexjs.texture('name:mario').one();
     bemario(selected);
 
-    selected = Stage.texture('mario').one();
+    selected = Stage.indexjs.texture('mario').one();
     bemario(selected);
 
-    selected = Stage.texture('walk').one();
+    selected = Stage.indexjs.texture('walk').one();
     bemario(selected);
 
-    selected = Stage.texture('mario').array(obj = []);
-    expect(selected).be(obj);
-    expect(selected.length).be(1);
+    selected = Stage.indexjs.texture('mario').array(obj = []);
+    utilexpect_expectjs(selected).be(obj);
+    utilexpect_expectjs(selected.length).be(1);
     bemario(selected[0]);
 
-    selected = Stage.texture('walk').array(obj = []);
-    expect(selected).be(obj);
-    expect(selected.length).be(3);
+    selected = Stage.indexjs.texture('walk').array(obj = []);
+    utilexpect_expectjs(selected).be(obj);
+    utilexpect_expectjs(selected.length).be(3);
     bemario(selected[0]);
   });
 
   it('atlas.cutouts', function() {
-    var Stage = sandboxed.require('../lib/');
+    var Stage = ext_sandboxedmodule_sandboxed.require('../lib/');
 
-    Stage.atlas({
+    Stage.indexjs.atlas({
       name : "main",
       // imagePath : "main.png",
       // imageRatio : 4,
@@ -162,13 +159,13 @@ describe('Stage.texture()', function() {
       } ]
     });
 
-    var dark = Stage.texture("main:color_dark").one();
-    var both = Stage.texture("main:color_").array();
+    var dark = Stage.indexjs.texture("main:color_dark").one();
+    var both = Stage.indexjs.texture("main:color_").array();
 
-    expect(dark).be.an('object');
-    expect(both).be.an('array');
-    expect(both.length).be(2);
-    expect(both[0]).be.an('object');
-    expect(both[1]).be.an('object');
+    utilexpect_expectjs(dark).be.an('object');
+    utilexpect_expectjs(both).be.an('array');
+    utilexpect_expectjs(both.length).be(2);
+    utilexpect_expectjs(both[0]).be.an('object');
+    utilexpect_expectjs(both[1]).be.an('object');
   });
 });
